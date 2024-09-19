@@ -1,9 +1,26 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from "zod";
+
+const schema = z.object({
+    name : z.string().min(1, "Name is Required").max(40, "Name can not exceed 40 characters") ,
+    email : z.string().email("Email is requied"),
+    phone : z.string().min(10 , "Phone is required") ,
+    password : z.string().min(8, "Password is too short").regex(/[0-9]/,"Password must contain a Number").regex(/[a-z]/ , "Password must have one lowercase").regex(/[A-Z]/,
+    "Password must contain uppercase").regex(/[/W]/,"Password must contain a speacial symbol")
+
+
+}) 
+
 function Signup() {
   console.log(useForm());
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register ,formState:{errors} } = useForm({
+    resolver : zodResolver(schema)
+  });
+
+  console.log(errors)
 
   const onSubmit = (data) => {
     console.log(data);
@@ -22,7 +39,7 @@ function Signup() {
           <input
             className="input_field"
             type="text"
-            {...register('name')}
+            {...register('name',{ required: true, maxLength: 20 })}
           />
           <label className="block" htmlFor="Name">
             Email
@@ -48,6 +65,7 @@ function Signup() {
             type="password"
             {...register('password')}
           />
+          {errors.password && <p className='text-red-500 font-semibold'>{errors.password.message}</p>}
           <button
             className="bg-blue-500 px-8 py-2 rounded-md w-full mt-3 text-white"
             type="submit"
@@ -61,3 +79,6 @@ function Signup() {
 }
 
 export default Signup;
+
+
+//resolvers will convert the zod schema validation into react-hook-form validation
