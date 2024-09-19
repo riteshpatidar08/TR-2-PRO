@@ -12,8 +12,15 @@ dbConnect()
 
 app.use('/api',require('./routes/userRoutes'))
 
+//global route handler 
+app.use((req,res,next)=>{
+    res.status(404).send(`requested url ${req.url} not found`)
+    next()
+})
+
 //global error handler middleware
 app.use(errorHandler) ;
+
 
 app.listen(PORT , ()=>{
     console.log(colors.yellow(`App is listening on the PORT:${PORT}`))
