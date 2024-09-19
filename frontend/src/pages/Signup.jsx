@@ -11,18 +11,21 @@ function Signup() {
 }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor='Name'>Name</label>
-        <input type='text' {...register('name')}  />
-        <label htmlFor='Name'>Email</label>
-        <input type='email' {...register('email')}  />
-        <label htmlFor='Name'>phone</label>
-        <input type='text' {...register('phone')}  />
-        <label htmlFor='Name'>Name</label>
-        <input type='password' {...register('password')}  />
-        <button type='submit'>Signup</button>
+    <div className='flex justify-center items-center min-h-screen'>
+    <div className='p-6 w-[25rem] shadow-lg rounded-md'>
+        <h1 className='text-black font-bold text-3xl text-center m-2'>Signup</h1>
+      <form  onSubmit={handleSubmit(onSubmit)}>
+        <label className='block' htmlFor='Name'>Name</label>
+        <input className='block mt-1 border border-slate-900 p-2 w-full rounded-md' type='text' {...register('name')}  />
+        <label className='block' htmlFor='Name'>Email</label>
+        <input className='block mt-1 border border-slate-900 p-2 w-full rounded-md'  type='email' {...register('email')}  />
+        <label className='block'  htmlFor='Name'>Phone</label>
+        <input className='block mt-1 border border-slate-900 p-2 w-full rounded-md'  type='text' {...register('phone')}  />
+        <label className='block' htmlFor='Name'>Password</label>
+        <input className='block mt-1 border border-slate-900 p-2 w-full rounded-md' type='password' {...register('password')}  />
+        <button className='bg-blue-500 px-8 py-2 rounded-md w-full mt-3 text-white'type='submit'>Signup</button>
       </form>
+      </div>
     </div>
   )
 }
