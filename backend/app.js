@@ -4,7 +4,10 @@ const app = express() ;
 const PORT = 3000 ;
 const dbConnect = require('./db')
 const errorHandler  = require('./middleware/errorHandler')
+const cors = require('cors')
 //parse the data from the req.body
+app.use(cors()) ;
+
 app.use(express.json());
 
 dbConnect()
