@@ -2,9 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios'
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from "zod";
+import { string, z } from "zod";
 import { toast } from 'sonner';
-
+import { register } from '../redux/userSlice';
+import { useDispatch } from 'react-redux';
 const schema = z.object({
     name : z.string().min(1, "Name is Required").max(40, "Name can not exceed 40 characters") ,
     email : z.string().email("Email is requied"),
@@ -16,23 +17,17 @@ const schema = z.object({
 }) 
 
 function Signup() {
-  console.log(useForm());
+
+ const dispatch = useDispatch()
+
   const { handleSubmit, register ,formState:{errors} } = useForm({
     resolver : zodResolver(schema)
   });
 
   console.log(errors)
 
-  const onSubmit = async (data) => {
-   try {
-     // console.log(data);
-    const res = await axios.post('http://localhost:3000/api/register',data)
-    console.log(res)
-    toast.success("User successfully registered")
-   } catch (error) {
-    console.log(error)
-    toast.error(error.response.data.message)
-   }
+  const onSubmit = (data) => {
+ dispatch(register(data))
   };
 
 
