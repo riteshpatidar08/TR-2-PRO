@@ -4,9 +4,9 @@ import { createAsyncThunk
  } from "@reduxjs/toolkit"
 import axios from "axios"
 
-export const register = createAsyncThunk('/user/register', async(data,{rejectWithValue})=>{
+export const Register = createAsyncThunk('/user/register', async(data,{rejectWithValue})=>{
     try {
-      const res = axios.post('http://localhost:3000/api/register')
+      const res = axios.post('http://localhost:3000/api/register',data)
       console.log(res.data)
       return res.data
   }
@@ -25,13 +25,13 @@ const userSlice = createSlice({
     name : "user",
     initialState,
     extraReducers : (builder) => {
- builder.addCase(register.pending, (state)=>{
+ builder.addCase(Register.pending, (state)=>{
     state.loading = true ;
     state.error = null
- }).addCase(register.fulfilled , (state)=>{
+ }).addCase(Register.fulfilled , (state)=>{
     state.loading = false ;
     state.error = null
- }).addCase(register.rejected,(state,action)=>{
+ }).addCase(Register.rejected,(state,action)=>{
     state.loading = false ;
     state.error = action.payload
  })

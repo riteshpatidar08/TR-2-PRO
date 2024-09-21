@@ -4,7 +4,7 @@ import axios from 'axios'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { string, z } from "zod";
 import { toast } from 'sonner';
-import { register } from '../redux/userSlice';
+import { Register } from '../redux/userSlice';
 import { useDispatch } from 'react-redux';
 const schema = z.object({
     name : z.string().min(1, "Name is Required").max(40, "Name can not exceed 40 characters") ,
@@ -27,7 +27,8 @@ function Signup() {
   console.log(errors)
 
   const onSubmit = (data) => {
- dispatch(register(data))
+    console.log(data)
+ dispatch(Register(data))
   };
 
 
