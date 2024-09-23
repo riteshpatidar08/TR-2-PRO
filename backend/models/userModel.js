@@ -34,6 +34,11 @@ const userSchema = new mongoose.Schema({
             },
             message : "Password must contain 1 uppercase , 1 lowercase , 1 Symbol ,1 Number"
         }
+     },
+     role : {
+        type : String ,
+       enum : ['admin' , 'user'] ,
+       default : 'user' 
      }
 })
 

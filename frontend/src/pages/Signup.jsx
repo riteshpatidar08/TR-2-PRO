@@ -33,7 +33,7 @@ console.log(loading)
 
   const onSubmit = (data) => {
     console.log(data)
- dispatch(Register(data))
+   dispatch(Register(data))
   };
 
 
