@@ -1,27 +1,22 @@
 import Signup from "./pages/Signup" 
 import {Routes , Route} from 'react-router-dom'
 import {Toaster} from 'sonner'
-import { useSelector , useDispatch } from "react-redux"
+import { useSelector , useDispatch } from "react-redux" 
+import Login from "./pages/Login"
 import {increment , decrement} from './redux/counterSlice'
 export default function App() {
   //to get the value
 const dispatch = useDispatch()
 const {count} = useSelector((state)=>state.count)
 
-const handleIncrement = () =>{
-  dispatch(increment())
-}
-const handleDecrement = () =>{
-  dispatch(decrement())
-}
+
 
   return (
     <div>
-    <p>count:{count}</p>
-      <button onClick={handleIncrement}>Increment</button>
-      <button onClick={handleDecrement}>decrement</button>
+    
    <Routes>
     <Route path="/register" element={<Signup/>} />
+    <Route path="/login" element={<Login/>}/>
    </Routes>
    <Toaster position="bottom-right" />
    </div>
