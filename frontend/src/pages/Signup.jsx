@@ -5,7 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { string, z } from "zod";
 import { toast } from 'sonner';
 import { Register } from '../redux/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
+
+import { CircularProgress } from '@mui/material';
+
 const schema = z.object({
     name : z.string().min(1, "Name is Required").max(40, "Name can not exceed 40 characters") ,
     email : z.string().email("Email is requied"),
@@ -17,7 +20,9 @@ const schema = z.object({
 }) 
 
 function Signup() {
+const {loading} = useSelector((state)=>state.user)
 
+console.log(loading)
  const dispatch = useDispatch()
 
   const { handleSubmit, register ,formState:{errors} } = useForm({
@@ -76,7 +81,7 @@ function Signup() {
             className="bg-black px-8 py-2 rounded-md w-full mt-3 text-white"
             type="submit"
           >
-            Signup
+          {loading ? <CircularProgress/> : "Signup"}
           </button>
         </form>
       </div>

@@ -14,7 +14,7 @@ console.log(data)
         </h1>
         <form onSubmit={handleSubmit(onSubmit)}>
         
-          <label className="block" htmlFor="Name">
+          <label className="block" htmlFor="Email">
             Email
           </label>
           <input
