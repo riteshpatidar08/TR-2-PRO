@@ -34,6 +34,7 @@ if(!user){
   throw new Error("User is not registered")
 }
 
+console.log(password , user)
  //step2 check if user password matched
 const isPasswordMatch = await bcrypt.compare(password,user.password)
  if(!isPasswordMatch){

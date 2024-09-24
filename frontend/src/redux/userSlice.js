@@ -4,6 +4,8 @@ import { createAsyncThunk
  } from "@reduxjs/toolkit"
 import axios from "axios"
 import { toast } from "sonner"
+import {jwtDecode} from 'jwt-decode';
+
 export const Register = createAsyncThunk('/user/register', async(data,{rejectWithValue})=>{
     try {
       const res =  await axios.post('http://localhost:3000/api/register',data)
@@ -56,8 +58,17 @@ const userSlice = createSlice({
  }).addCase(userLogin.pending, (state)=>{
     state.loading = true
  }).addCase(userLogin.fulfilled,(state,action)=>{
-    console.log(action.payload)
+    
     state.loading = false 
+    const {token} = action.payload
+    const {name,role} = jwtDecode(token)
+    //update the initial state
+    state.role = role ;
+    state.token = token ;
+    state.name = name;
+    //save the token , role in localstorage
+    localStorage.setItem("token",token)
+    localStorage.setItem('role', role )
     toast.success("Login Successfull")
  }).addCase(userLogin.rejected ,(state,action)=>{
     console.log(action.payload)
