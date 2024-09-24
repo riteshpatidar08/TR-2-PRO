@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { userLogin } from '../redux/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 import { FaGoogle, FaUser, FaLock } from 'react-icons/fa';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, Navigate ,useNavigate, useNavigation } from 'react-router-dom';
 
 function Login() {
   const { handleSubmit, register, formState: { errors } } = useForm(); 
   const dispatch = useDispatch();
+  const navigate = useNavigate() ;
+
   const [showPassword, setShowPassword] = useState(false);
+  const {role} = useSelector((state)=>state.user)
+console.log(role)
+
+useEffect(()=>{
+  if(role === "user"){
+    navigate('/')
+  }else if(role === 'admin'){
+    navigate('/dashboard')
+  }
+},[role,navigate])
 
   const onSubmit = (data) => {
     console.log(data);
