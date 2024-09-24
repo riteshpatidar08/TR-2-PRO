@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit"
 import { createAsyncThunk
  } from "@reduxjs/toolkit"
 import axios from "axios"
-
+import { toast } from "sonner"
 export const Register = createAsyncThunk('/user/register', async(data,{rejectWithValue})=>{
     try {
-      const res = axios.post('http://localhost:3000/api/register',data)
+      const res =  await axios.post('http://localhost:3000/api/register',data)
       console.log(res.data)
       return res.data
   }
@@ -19,12 +19,14 @@ export const Register = createAsyncThunk('/user/register', async(data,{rejectWit
 
 export const userLogin = createAsyncThunk('/user/login', async(data,{rejectWithValue})=>{
     try {
-      const res = axios.post('http://localhost:3000/api/login',data)
+      const res = await axios.post('http://localhost:3000/api/login',data)
       console.log(res.data)
       return res.data
   }
      catch (error) {
-        rejectWithValue(error)
+        console.log(error)
+        console.log(rejectWithValue(error))
+     return   rejectWithValue(error)
     }
 
 } )
@@ -47,6 +49,7 @@ const userSlice = createSlice({
  }).addCase(Register.fulfilled , (state)=>{
     state.loading = false ;
     state.error = null
+    toast.success('Account created Successfully')
  }).addCase(Register.rejected,(state,action)=>{
     state.loading = false ;
     state.error = action.payload
@@ -54,11 +57,13 @@ const userSlice = createSlice({
     state.loading = true
  }).addCase(userLogin.fulfilled,(state,action)=>{
     console.log(action.payload)
-    state.loading = false
- }).addCase(userLogin.rejected,(state,action)=>{
+    state.loading = false 
+    toast.success("Login Successfull")
+ }).addCase(userLogin.rejected ,(state,action)=>{
     console.log(action.payload)
     state.loading = false,
-    state.error = action.payload
+    state.error = action.payload.response.data.message
+    toast.error(action.payload.response.data.message)
  })
     }
 })
