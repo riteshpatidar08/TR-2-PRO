@@ -19,7 +19,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
 
         <Route element={<PrivateRoute allowrole={["admin"]} />}>
-          <Route path="/" element={<Homepage />} />
+          {/* <Route path="/" element={<Homepage />} /> */}
           <Route path="/dashboard" element={<Dashboard />} />
         
           <Route element={<PrivateRoute allowrole={["user"]} />}>

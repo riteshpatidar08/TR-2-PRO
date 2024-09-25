@@ -39,6 +39,12 @@ const userSchema = new mongoose.Schema({
         type : String ,
        enum : ['admin' , 'user'] ,
        default : 'user' 
+     } ,
+
+     googleId : {
+        type : String ,
+        unqiue : true ,
+        sparse : true //null when the google id is not available when we signup the user
      }
 })
 
