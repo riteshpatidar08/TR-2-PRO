@@ -22,7 +22,7 @@ console.log(role)
     if(role ==='user' && location.pathname !== '/' ){
    navigate('/')
     }
-     if(role==='admin' && location.pathname !== 'dashboard'){
+     if(role ==='admin' && location.pathname !== 'dashboard'){
       navigate('/dashboard')
     }
 

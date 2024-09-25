@@ -17,14 +17,16 @@ export default function App() {
       <Routes>
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-
-        <Route element={<PrivateRoute allowrole={["admin"]} />}>
-          {/* <Route path="/" element={<Homepage />} /> */}
-          <Route path="/dashboard" element={<Dashboard />} />
-        
-          <Route element={<PrivateRoute allowrole={["user"]} />}>
+ <Route element={<PrivateRoute allowrole={['user']} />}>
             <Route path="/" element={<Homepage />} />
           </Route>
+
+          
+        <Route element={<PrivateRoute allowrole={['admin']} />}>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        
+         
         </Route>
       </Routes>
       <Toaster position="bottom-right" />
