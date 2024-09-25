@@ -7,6 +7,7 @@ import { increment, decrement } from './redux/counterSlice';
 import Homepage from './pages/Homepage';
 import PrivateRoute from './components/PrivateRoute';
 import Dashboard from './pages/Dashboard';
+import GoogleHandler from './components/GoogleHandler';
 export default function App() {
   //to get the value
   const dispatch = useDispatch();
@@ -17,11 +18,12 @@ export default function App() {
       <Routes>
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path='/auth/google/callback' element={<GoogleHandler/>}/>
  <Route element={<PrivateRoute allowrole={['user']} />}>
             <Route path="/" element={<Homepage />} />
           </Route>
 
-          
+
         <Route element={<PrivateRoute allowrole={['admin']} />}>
           <Route path="/" element={<Homepage />} />
           <Route path="/dashboard" element={<Dashboard />} />

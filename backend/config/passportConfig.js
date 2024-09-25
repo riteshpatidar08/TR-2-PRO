@@ -8,14 +8,15 @@ passport.use(new GoogleStrategy({
     clientID  :  process.env.clientID ,
     clientSecret : process.env.clientSecret,
     callbackURL : process.env.callbackURL
-}, async(profile,done)=>{
+}, async(accessToken, refreshToken,profile,done)=>{
   console.log(profile)
 
   const {id:googleId , displayName:name, emails} = profile 
-   const email = emails.value[0] ;
+  console.log(emails)
+  const email = emails[0].value
 
    try {
-    const user = await User.findOne({googleId})
+    let user = await User.findOne({googleId})
     if(!user){
         user  = await User.create({
             name ,
@@ -43,3 +44,4 @@ passport.deserializeUser(async(id,done)=>{
     done(error, null)
   }
 })
+
