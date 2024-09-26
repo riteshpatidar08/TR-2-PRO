@@ -18,7 +18,7 @@ app.use(session({
   secret: 'my-secret-string',
   resave: false,    
   saveUninitialized: false ,  //if something is not store we donot need to create session
-  cookie: { maxAge : 1000 * 60 * 60 * 24 * 5 }
+  cookie: { maxAge : 1000 * 60 * 60 * 24 * 30 }
 }))
 
 //NOTE initializing the passport middleware in the express app
@@ -31,6 +31,7 @@ dbConnect() ;
 
 
 app.use('/api',require('./routes/userRoutes'))
+app.use('/api', require('./routes/productRoutes'))
 
 //global route handler 
 app.use((req,res,next)=>{

@@ -13,6 +13,9 @@ const productSchema = new mongoose.Schema({
     type : String,
     
  },
+ category : {
+   type : String
+ } ,
  description : {
     type : String
  },
@@ -26,6 +29,8 @@ const productSchema = new mongoose.Schema({
 
 
 })
+
+
 
 const Product = mongoose.model('Product',productSchema) ;
 

@@ -5,6 +5,7 @@ import beg from './../../assets/beg.png'
 import women from './..//../assets/women.png'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import './Hero.css'
 function Hero() {
 
     const  settings = {
