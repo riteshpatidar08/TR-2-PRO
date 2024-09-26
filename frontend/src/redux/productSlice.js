@@ -29,7 +29,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProduct.fulfilled, (state, action) => {
         console.log(action.payload);
-        state.product = action.payload;
+        state.product = action.payload.product;
       })
       .addCase(fetchProduct.rejected, (state, action) => {
         console.log(action.payload);

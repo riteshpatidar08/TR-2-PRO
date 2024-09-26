@@ -1,9 +1,9 @@
-// import React from 'react';
-// import { addTocart } from '../../redux/cartSlice';
-// import { useDispatch } from 'react-redux';
-// function ProductCard({ product }) {
-//   console.log(product);
-// const dispatch = useDispatch()
+import React from 'react';
+
+import { useDispatch } from 'react-redux';
+function ProductCard({ product }) {
+  console.log(product);
+const dispatch = useDispatch()
 //   const handleAddToCart = () => {
 // dispatch(addTocart({
 //     id : product._id,
@@ -14,36 +14,36 @@
 
 // }))
 //   }
-//   return (
-//     <div>
-//       <div className="relative  group">
-//         <div className="absolute top-2 left-2 bg-red-500 text-white font-semibold text-xs p-1">
-//           -40%
-//         </div>
-//         <img className="h-full w-full object-cover" src={`http://localhost:8000/${product.image}`} />
-//         <div
-//           className=" absolute 
-//           bottom-0
-//           opacity-0 w-full  translate-y-full  group-hover:opacity-100 transition-all duration-200 ease-in-out group-hover:-translate-y-0"
-//         >
-//           <div className="mt-auto">
-//             <button onClick={handleAddToCart} className="bg-black bg-opacity-50 px-6 py-4 w-full text-white">
-//               Add to Cart
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="mt-3">
-//         <h1>{product.name}</h1>
-//         <div className="flex gap-2">
-//           <span className=" text-red-500 line-through">
-//             ${product.old_price}
-//           </span>
-//           <span className="">${product.new_price}</span>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+  return (
+    <div>
+      <div className="relative  group">
+        <div className="absolute top-2 left-2 bg-red-500 text-white font-semibold text-xs p-1">
+          {`${product.discountPercentage}%`}
+        </div>
+        <img className="h-full w-full object-cover" src={`http://localhost:3000/${product.image}`} />
+        <div
+          className=" absolute 
+          bottom-0
+          opacity-0 w-full  translate-y-full  group-hover:opacity-100 transition-all duration-200 ease-in-out group-hover:-translate-y-0"
+        >
+          <div className="mt-auto">
+            <button  className="bg-black bg-opacity-50 px-6 py-4 w-full text-white">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="mt-3">
+        <h1>{product.name}</h1>
+        <div className="flex gap-2">
+          <span className=" text-red-500 line-through">
+           
+          </span>
+          <span className="">${product.price}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-// export default ProductCard;
+export default ProductCard;
