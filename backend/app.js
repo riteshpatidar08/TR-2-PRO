@@ -14,6 +14,7 @@ const cors = require('cors')
 app.use(cors()) ;
 
 //NOTE creating a session whenever login with google hit..
+app.use('/uploads',express.static('uploads'))
 app.use(session({
   secret: 'my-secret-string',
   resave: false,    

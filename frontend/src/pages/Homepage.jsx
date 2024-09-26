@@ -6,6 +6,8 @@ import GridSection from '../components/Home/GridSection'
 import { fetchProduct } from '../redux/productSlice'
 import {useDispatch} from 'react-redux'
 import ProductList from '../components/Home/ProductList'
+import FitGuide from '../components/Home/FitGuide'
+import Footer from '../components/Home/Footer'
 function Homepage() {
   const dispatch = useDispatch()
   useEffect(()=>{
@@ -17,8 +19,11 @@ function Homepage() {
    <Navbar/>
    <Hero/>
    <GridSection/>
-   <Banner/>
+  
    <ProductList/>
+    <Banner/>
+    <FitGuide/>
+    <Footer/>
     </div>
   )
 }

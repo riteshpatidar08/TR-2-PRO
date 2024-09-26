@@ -1,11 +1,9 @@
 import React from 'react';
-import all_products from '../../assets/all_product';
 import ProductCard from './ProductCard';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function ProductList() {
-  
-  const {product} = useSelector((state)=>state.product)
+  const { product } = useSelector((state) => state.product);
   const threeProducts = product.slice(0, 3);
   return (
     <div className=" container mx-auto py-8">
