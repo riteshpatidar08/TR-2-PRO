@@ -3,23 +3,42 @@ import { fetchProduct } from '../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
 function Product() {
+    const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProduct());
   }, []);
+
+  const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+
+  boxShadow: 24,
+  p: 4,
+};
 
   const { product } = useSelector((state) => state.product);
 
   const columns = [
     {
       field: 'image',
-      headerName: 'Photo',
+      headerName: 'Image',
       width: 100,
       renderCell: (params) => {
-        <div>
-          <img src={`http://localhost:3000/${params.row.image}`} />
-        </div>;
+      <div>
+        <img className='object-contain w-14' src={`http://localhost:3000/${params.value}`} />
+      </div>
       },
     },
     { field: 'name', headerName: 'Name', width: 100 },
@@ -42,18 +61,19 @@ function Product() {
       headerName: 'Discount Price',
     },
     {
+      field : 'actions',
       headerName: 'Actions',
       renderCell: (params) => {
         <div>
-          <button>Edit</button>
-          <button>Edit</button>
+      
         </div>;
       },
     },
   ];
 
   return (
-    <div>
+    <div className='m-10'>
+<button onClick={handleOpen} className='bg-blue-500 px-6 py-2 rounded-sm my-4 text-white font-semibold'>Add Product</button>
       <Box sx={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={product}
@@ -70,6 +90,16 @@ function Product() {
           disableRowSelectionOnClick
         />
       </Box>
+         <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+        <div>hello</div>
+        </Box>
+      </Modal>
     </div>
   );
 }
