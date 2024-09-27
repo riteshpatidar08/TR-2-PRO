@@ -6,7 +6,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
+import { FiEdit2 } from "react-icons/fi";
+import { MdDeleteOutline } from "react-icons/md";
 function Product() {
     const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -35,11 +36,11 @@ function Product() {
       field: 'image',
       headerName: 'Image',
       width: 100,
-      renderCell: (params) => {
+      renderCell: (params) => (
       <div>
         <img className='object-contain w-14' src={`http://localhost:3000/${params.value}`} />
       </div>
-      },
+      ),
     },
     { field: 'name', headerName: 'Name', width: 100 },
     {
@@ -63,11 +64,13 @@ function Product() {
     {
       field : 'actions',
       headerName: 'Actions',
-      renderCell: (params) => {
-        <div>
+      renderCell: (params) => (
+        <div className='flex m-2 gap-2 cursor-pointer'>
+     <FiEdit2 size={26} className='text-blue-500' />
       
-        </div>;
-      },
+      <MdDeleteOutline size={26} className='text-red-500'/>
+        </div>
+      ),
     },
   ];
 
@@ -86,8 +89,8 @@ function Product() {
             },
           }}
           pageSizeOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
+         
+         
         />
       </Box>
          <Modal
