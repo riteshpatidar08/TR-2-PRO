@@ -45,7 +45,7 @@ function Product() {
     { field: 'name', headerName: 'Name', width: 100 },
     {
       field: 'price',
-      headerName: 'Price',
+      headerName: 'Price(Rs.)',
       width: 150,
     },
     {
@@ -59,7 +59,11 @@ function Product() {
     },
     {
       field: 'discountPrice',
-      headerName: 'Discount Price',
+      headerName: 'Discount Price(Rs.)',
+    },
+    {
+      field: 'stock',
+      headerName: 'Stock Avail.',
     },
     {
       field : 'actions',

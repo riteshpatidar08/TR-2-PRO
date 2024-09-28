@@ -6,11 +6,11 @@ import { FaGoogle, FaUser, FaLock } from 'react-icons/fa';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useNavigate , useLocation } from 'react-router-dom';
-
+import { CircularProgress } from '@mui/material';
 
 function Login() {
   const { handleSubmit, register, formState: { errors } } = useForm(); 
-  const {role} = useSelector((state)=>state.user)
+  const {role , loading} = useSelector((state)=>state.user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -81,7 +81,7 @@ console.log(role)
             className="bg-black px-8 py-2 rounded-md w-full mt-3 text-white"
             type="submit"
           >
-            Login
+           {loading ? <CircularProgress size={20} className='text-white'/> : 'Login'}
           </button>
         </form>
 
