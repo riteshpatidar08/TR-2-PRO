@@ -14,7 +14,7 @@ function PrivateRoute({allowrole}) {
  }
  return  (
     <>
-   
+
     <Outlet/></>
     
  )
