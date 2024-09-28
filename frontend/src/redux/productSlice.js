@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-
+import { toast } from 'sonner';
 const initialState = {
   product: [],
   loading: false,
@@ -19,6 +19,17 @@ export const fetchProduct = createAsyncThunk(
   }
 );
 
+export const createProduct = createAsyncThunk(
+  'create/product',
+  async (formData, { rejectWithValue }) => {
+    try {
+      const res = await axios.post('http://localhost:3000/api/addproduct', formData);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 const productSlice = createSlice({
   name: 'product',
   initialState,
@@ -32,6 +43,18 @@ const productSlice = createSlice({
         state.product = action.payload.product;
       })
       .addCase(fetchProduct.rejected, (state, action) => {
+        console.log(action.payload);
+        state.loading = false;
+      }).addCase(createProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createProduct.fulfilled, (state, action) => {
+        state.loading = false
+       toast.success(
+        'Product added successfull'
+       )
+      })
+      .addCase(createProduct.rejected, (state, action) => {
         console.log(action.payload);
         state.loading = false;
       });

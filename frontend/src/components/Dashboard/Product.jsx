@@ -6,10 +6,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { FiEdit2 } from "react-icons/fi";
-import { MdDeleteOutline } from "react-icons/md";
+import { FiEdit2 } from 'react-icons/fi';
+import { MdDeleteOutline } from 'react-icons/md';
+import { useForm } from 'react-hook-form';
+import { createProduct } from '../../redux/productSlice';
 function Product() {
-    const [open, setOpen] = React.useState(false);
+  const { handleSubmit, register } = useForm();
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
@@ -18,16 +21,16 @@ function Product() {
   }, []);
 
   const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
 
-  boxShadow: 24,
-  p: 4,
-};
+    boxShadow: 24,
+    p: 4,
+  };
 
   const { product } = useSelector((state) => state.product);
 
@@ -37,9 +40,12 @@ function Product() {
       headerName: 'Image',
       width: 100,
       renderCell: (params) => (
-      <div>
-        <img className='object-contain w-14' src={`http://localhost:3000/${params.value}`} />
-      </div>
+        <div>
+          <img
+            className="object-contain w-14"
+            src={`http://localhost:3000/${params.value}`}
+          />
+        </div>
       ),
     },
     { field: 'name', headerName: 'Name', width: 100 },
@@ -66,21 +72,42 @@ function Product() {
       headerName: 'Stock Avail.',
     },
     {
-      field : 'actions',
+      field: 'actions',
       headerName: 'Actions',
       renderCell: (params) => (
-        <div className='flex m-2 gap-2 cursor-pointer'>
-     <FiEdit2 size={26} className='text-blue-500' />
-      
-      <MdDeleteOutline size={26} className='text-red-500'/>
+        <div className="flex m-2 gap-2 cursor-pointer">
+          <FiEdit2 size={26} className="text-blue-500" />
+
+          <MdDeleteOutline size={26} className="text-red-500" />
         </div>
       ),
     },
   ];
 
+  const onSubmit = async(data) => {
+    console.log(data.discountPercentage)
+   const formData = new FormData() ;
+   formData.append('name', data.name)
+   formData.append('price', data.price)
+   formData.append('image', data.image[0])
+   formData.append('category',data.category)
+   formData.append('stock',data.stock)
+   formData.append('description',data.description)
+   formData.append('discountPercentage',data.discountPercentage)
+   console.log('formdata', formData)
+ await dispatch(createProduct(formData))
+ dispatch(fetchProduct())
+ handleClose()
+  }
+
   return (
-    <div className='m-10'>
-<button onClick={handleOpen} className='bg-blue-500 px-6 py-2 rounded-sm my-4 text-white font-semibold'>Add Product</button>
+    <div className="m-10">
+      <button
+        onClick={handleOpen}
+        className="bg-blue-500 px-6 py-2 rounded-sm my-4 text-white font-semibold"
+      >
+        Add Product
+      </button>
       <Box sx={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={product}
@@ -93,18 +120,69 @@ function Product() {
             },
           }}
           pageSizeOptions={[5]}
-         
-         
         />
       </Box>
-         <Modal
+      <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <div>hello</div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <label>Name</label>
+            <input
+              className="input_field"
+              type="text"
+              {...register('name')}
+              placeholder="Enter name"
+            />
+            <label>Price</label>
+            <input
+              className="input_field"
+              type="number"
+              {...register('price')}
+              placeholder="Enter price"
+            />
+            <label>Image</label>
+            <input
+              className="input_field"
+              type="file"
+              {...register('image')}
+              placeholder="Enter price"
+            />
+            <label>Category</label>
+            <input
+              className="input_field"
+              type="text"
+              {...register('category')}
+              placeholder="Enter category"
+            />
+            <label>Description</label>
+            <input
+              type="text"
+              className="input_field"
+              {...register('description')}
+              placeholder="Enter category"
+            />
+            <label>Stock</label>
+            <input
+              type="text"
+              className="input_field"
+              {...register('stock')}
+              placeholder="Enter Stock"
+            />
+            <label>Discount Percentage</label>
+            <input
+              type="number"
+              className="input_field"
+              {...register(' discountPercentage')}
+              placeholder="Enter Discount"
+            />
+            <button className="bg-blue-500 px-6 py-2 rounded-md mt-2 text-white" type="submit">
+              Add Product
+            </button>
+          </form>
         </Box>
       </Modal>
     </div>
