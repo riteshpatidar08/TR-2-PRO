@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect ,useState } from 'react';
 import { fetchProduct } from '../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { createProduct } from '../../redux/productSlice';
 function Product() {
   const { handleSubmit, register } = useForm();
+  const [isEdit , setIsEdit] = useState(false) ;
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -34,6 +35,10 @@ function Product() {
 
   const { product } = useSelector((state) => state.product);
 
+  const handleEdit = () => {
+    setIsEdit(true)
+    handleOpen()
+  }
   const columns = [
     {
       field: 'image',
@@ -76,7 +81,7 @@ function Product() {
       headerName: 'Actions',
       renderCell: (params) => (
         <div className="flex m-2 gap-2 cursor-pointer">
-          <FiEdit2 size={26} className="text-blue-500" />
+          <FiEdit2 size={26} onClick={handleEdit} className="text-blue-500" />
 
           <MdDeleteOutline size={26} className="text-red-500" />
         </div>
@@ -84,26 +89,31 @@ function Product() {
     },
   ];
 
-  const onSubmit = async(data) => {
-    console.log(data.discountPercentage)
-   const formData = new FormData() ;
-   formData.append('name', data.name)
-   formData.append('price', data.price)
-   formData.append('image', data.image[0])
-   formData.append('category',data.category)
-   formData.append('stock',data.stock)
-   formData.append('description',data.description)
-   formData.append('discountPercentage',data.discountPercentage)
-   console.log('formdata', formData)
- await dispatch(createProduct(formData))
- dispatch(fetchProduct())
- handleClose()
+  const onSubmit = async (data) => {
+    console.log(data.discountPercentage);
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('price', data.price);
+    formData.append('image', data.image[0]);
+    formData.append('category', data.category);
+    formData.append('stock', data.stock);
+    formData.append('description', data.description);
+    formData.append('discountPercentage', data.discountPercentage);
+    console.log('formdata', formData);
+    await dispatch(createProduct(formData));
+    dispatch(fetchProduct());
+    handleClose();
+  };
+  
+  const handleButtonClick = () => {
+    setIsEdit(false);
+    handleOpen()
   }
 
   return (
     <div className="m-10">
       <button
-        onClick={handleOpen}
+        onClick={handleButtonClick}
         className="bg-blue-500 px-6 py-2 rounded-sm my-4 text-white font-semibold"
       >
         Add Product
@@ -176,11 +186,14 @@ function Product() {
             <input
               type="number"
               className="input_field"
-              {...register(' discountPercentage')}
+              {...register('discountPercentage')}
               placeholder="Enter Discount"
             />
-            <button className="bg-blue-500 px-6 py-2 rounded-md mt-2 text-white" type="submit">
-              Add Product
+            <button
+              className="bg-blue-500 px-6 py-2 rounded-md mt-2 text-white"
+              type="submit"
+            >
+           {isEdit ? "Update Product" :   "Add Product" }
             </button>
           </form>
         </Box>

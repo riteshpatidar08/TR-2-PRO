@@ -14,7 +14,7 @@ function PrivateRoute({allowrole}) {
  }
  return  (
     <>
-    <Navbar/>
+   
     <Outlet/></>
     
  )
