@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
+import Navbar from './Home/Navbar'
 function PrivateRoute({allowrole}) {
     const token = localStorage.getItem('token')
     const role = localStorage.getItem('role')
@@ -11,7 +12,16 @@ function PrivateRoute({allowrole}) {
  if(!allowrole.includes(role)){
     return <Navigate to="/login"/>
  }
- return <Outlet/>
+ return  (
+    <>
+    <Navbar/>
+    <Outlet/></>
+    
+ )
+ 
+   
+
+ 
 }
 
 export default PrivateRoute

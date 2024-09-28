@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import CartItem from '../components/CartItem';
 
 import { addToCart, removeItems, } from '../redux/cartSlice';
-
+import Navbar from '../components/Home/Navbar';
 const Cart = () => {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cart);
@@ -31,6 +31,8 @@ const Cart = () => {
   };
 
   return (
+    <div>
+        
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h1 className="text-2xl font-medium mb-8">Shopping Cart</h1>
       {items.length > 0 ? (
@@ -81,6 +83,7 @@ const Cart = () => {
       ) : (
         <p className="text-lg text-gray-600">Your cart is empty.</p>
       )}
+    </div>
     </div>
   );
 };
