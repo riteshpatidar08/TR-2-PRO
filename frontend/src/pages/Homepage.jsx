@@ -16,7 +16,7 @@ function Homepage() {
 
   return (
     <div>
- <Navbar/>
+
    <Hero/>
    <GridSection/>
   
