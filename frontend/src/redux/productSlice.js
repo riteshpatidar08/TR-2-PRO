@@ -21,17 +21,25 @@ export const fetchProduct = createAsyncThunk(
 
 export const createProduct = createAsyncThunk(
   'create/product',
-  async (formData, { rejectWithValue }) => {
-    try {
-      const res = await axios.post('http://localhost:3000/api/addproduct', formData , {
-        headers : {
-          Authorization : `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      return res.data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+ async (formData, { rejectWithValue }) => {
+    const promise = axios.post(
+      'http://localhost:3000/api/addproduct',
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    );
+    return toast.promise(promise, {
+      loading: 'adding product...',
+      success: (res) => {
+        return res.data;
+      },
+      error: (err) => {
+        return rejectWithValue(err);
+      },
+    });
   }
 );
 const productSlice = createSlice({
@@ -49,14 +57,13 @@ const productSlice = createSlice({
       .addCase(fetchProduct.rejected, (state, action) => {
         console.log(action.payload);
         state.loading = false;
-      }).addCase(createProduct.pending, (state) => {
+      })
+      .addCase(createProduct.pending, (state) => {
         state.loading = true;
       })
       .addCase(createProduct.fulfilled, (state, action) => {
-        state.loading = false
-       toast.success(
-        'Product added successfull'
-       )
+        state.loading = false;
+        toast.success('Product added successfull');
       })
       .addCase(createProduct.rejected, (state, action) => {
         console.log(action.payload);
@@ -65,4 +72,4 @@ const productSlice = createSlice({
   },
 });
 
-export default productSlice.reducer ;
+export default productSlice.reducer;
