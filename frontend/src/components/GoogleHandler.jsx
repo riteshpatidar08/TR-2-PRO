@@ -10,9 +10,11 @@ const params = new URLSearchParams(location.search)
 console.log(params)
 const token = params.get('token')
 const role = params.get('role')
+const id = params.get('id')
 if(token && role){
     localStorage.setItem("token",token)
     localStorage.setItem('role',role)
+    localStorage.setItem('id',id)
     navigate('/')
 }
 },[navigate ,location.search])

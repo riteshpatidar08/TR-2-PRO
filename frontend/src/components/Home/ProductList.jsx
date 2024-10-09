@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 function ProductList() {
   const { product } = useSelector((state) => state.product);
+  console.log(product)
   const threeProducts = product.slice(0, 3);
   return (
     <div className=" container mx-auto py-8">

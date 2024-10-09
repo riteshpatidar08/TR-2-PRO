@@ -61,7 +61,7 @@ exports.googleAuth = async(req,res) => {
   const user = req.user
   const token = jwt.sign({id : user._id , name:user.name, role:user.role} , 'this-is-my-secret-string' , {expiresIn : '30d'} )
 
-res.redirect(`${process.env.REDIRECT_URL}?token=${token}&role=${user.role}`)
+res.redirect(`${process.env.REDIRECT_URL}?token=${token}&role=${user.role}&id=${user._id}`)
  
   } catch (error) {
     next(error)

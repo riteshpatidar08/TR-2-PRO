@@ -6,12 +6,12 @@ const dbConnect = require('./db')
 const errorHandler  = require('./middleware/errorHandler')
 const passport = require('passport')
 const session = require('express-session')
-
-require('dotenv').config()
-require('./config/passportConfig')
 const cors = require('cors')
 //NOTE parse the data from the req.body
 app.use(cors()) ;
+require('dotenv').config()
+require('./config/passportConfig')
+
 
 //NOTE creating a session whenever login with google hit..
 app.use('/uploads',express.static('uploads'))
@@ -30,10 +30,13 @@ app.use(express.json());
 
 dbConnect() ;
 
-
+app.get('/',(req,res)=>{
+    res.send('HOMEPAGE')
+})
 app.use('/api',require('./routes/userRoutes'))
 app.use('/api', require('./routes/productRoutes'))
-
+app.use('/api',require('./routes/checkRoutes'))
+app.use('/api',require('./routes/orderRoutes'))
 //global route handler 
 app.use((req,res,next)=>{
     res.status(404).send(`requested url ${req.url} not found`)

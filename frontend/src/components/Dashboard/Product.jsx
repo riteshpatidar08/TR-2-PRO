@@ -48,7 +48,7 @@ function Product() {
         <div>
           <img
             className="object-contain w-14"
-            src={`http://localhost:3000/${params.value}`}
+            src={`${import.meta.env.VITE_API_URL}/${params.value}`}
           />
         </div>
       ),

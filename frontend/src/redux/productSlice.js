@@ -11,7 +11,7 @@ export const fetchProduct = createAsyncThunk(
   'fetch/product',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${import.meta.env.API_URL}/api/getproducts`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/getproducts`);
       return res.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -23,7 +23,7 @@ export const createProduct = createAsyncThunk(
   'create/product',
  async (formData, { rejectWithValue }) => {
     const promise = axios.post(
-      `${import.meta.env.API_URL}/api/addproduct`,
+      `${import.meta.env.VITE_API_URL}/api/addproduct`,
       formData,
       {
         headers: {
@@ -51,7 +51,7 @@ const productSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchProduct.fulfilled, (state, action) => {
-        console.log(action.payload);
+      
         state.product = action.payload.product;
       })
       .addCase(fetchProduct.rejected, (state, action) => {

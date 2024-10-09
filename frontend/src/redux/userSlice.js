@@ -72,7 +72,8 @@ const userSlice = createSlice({
     
     state.loading = false 
     const {token} = action.payload
-    const {name,role} = jwtDecode(token)
+    const {name,role,id} = jwtDecode(token)
+    console.log(id)
     //update the initial state
     state.role = role ;
     state.token = token ;
@@ -81,6 +82,7 @@ const userSlice = createSlice({
     localStorage.setItem("token",token)
     localStorage.setItem('role', role )
     localStorage.setItem('name', name )
+    localStorage.setItem('id', id )
     toast.success("Login Successfull")
  }).addCase(userLogin.rejected ,(state,action)=>{
     console.log(action.payload)

@@ -10,13 +10,16 @@ import Dashboard from './components/Dashboard/Dashboard';
 import GoogleHandler from './components/GoogleHandler';
 import Product from './components/Dashboard/Product';
 import Cart from './pages/Cart';
+import Cancel from './pages/Cancel' ;
+import Success from './pages/Success'
 export default function App() {
-  //to get the value
+
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.count);
 
   return (
     <div>
+    
       <Routes>
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login />} />
@@ -25,6 +28,8 @@ export default function App() {
          <Route element={<PrivateRoute allowrole={['user', 'admin']} />}>
           <Route path="/" element={<Homepage />} />
           <Route path="/cart" element={<Cart />} />
+           <Route path="/success" element={<Success/>} />
+        <Route path="/cancel" element={<Cancel/>} />
         </Route>
 
         {/* <Route element={<PrivateRoute allowrole={['user']} />}>

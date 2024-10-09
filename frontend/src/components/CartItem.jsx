@@ -2,12 +2,13 @@
 import React from 'react';
 
 const CartItem = ({ item, onIncrease, onDecrease }) => {
+  
   console.log(item)
   return (
     <div className="flex items-center justify-between py-4 border-b">
       <div className="flex items-center">
         <img
-          src={`http://localhost:3000/${item.image}`}
+          src={`${import.meta.env.VITE_API_URL}/${item.image}`}
           alt={item.name}
           className="w-20 h-20 object-cover"
         />
