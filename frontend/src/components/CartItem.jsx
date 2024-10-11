@@ -8,7 +8,7 @@ const CartItem = ({ item, onIncrease, onDecrease }) => {
     <div className="flex items-center justify-between py-4 border-b">
       <div className="flex items-center">
         <img
-          src={`${import.meta.env.VITE_API_URL}/${item.image}`}
+          src={item.image}
           alt={item.name}
           className="w-20 h-20 object-cover"
         />

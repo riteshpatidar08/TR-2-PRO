@@ -24,7 +24,7 @@ function ProductCard({ product }) {
         </div>
         <img
           className="h-full w-full object-cover"
-          src={`http://localhost:3000/${product.image}`}
+          src={product.image}
         />
         <div
           className=" absolute 

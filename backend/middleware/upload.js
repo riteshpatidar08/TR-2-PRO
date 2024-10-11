@@ -1,15 +1,25 @@
-const multer = require('multer')
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const multer = require('multer');
+require('dotenv').config()
+console.log(process.env.CLOUDINARY_CLOUD_NAME)
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads')
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,  
+  api_key: process.env.CLOUDINARY_API_KEY,       
+  api_secret: process.env.CLOUDINARY_API_SECRET,  
+});
+
+// Configure Cloudinary storage for Multer
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'uploads',           
+    format: async (req, file) => 'png', 
+    public_id: (req, file) => 'computed-filename-' + Date.now(),
   },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix)
-  }
-})
+});
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage });
 
-module.exports = upload ;
+module.exports = upload;
